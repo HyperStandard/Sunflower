@@ -7,9 +7,12 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import com.arasthel.swissknife.SwissKnife
 import com.arasthel.swissknife.annotations.InjectView
+import com.arasthel.swissknife.annotations.OnClick
 import com.example.andrew.sunflower.R
 import com.squareup.otto.Bus
 import com.squareup.otto.Subscribe
@@ -39,20 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         bus.register this
 
         int i = 0;
+        BusProvider.getInstance().post("Worked once")
 
-        Thread.start {
-            while (true) {
-                Log.e("warning", currentThread().getName())
-                i++
-                BusProvider.getInstance().post("count: " + i)
-                sleep(1000)
-                if (i > 10) {
-                    break
-                }
-            }
-        }
 
-        //BusProvider.startCount();
     }
 
     @Subscribe
@@ -85,5 +77,18 @@ public class LoginActivity extends AppCompatActivity {
 
     public setExtras(Bundle bundle) {
         //do nothing heh
+    }
+
+    @OnClick (R.id.fab)
+    public void onClick(View button) {
+        BusProvider.getInstance().post("Button pressed")
+        Thread.start {
+            sleep(1000);
+            BusProvider.getInstance().post("count 1")
+            sleep(1000)
+            BusProvider.getInstance().post("count 2")
+            interrupt()
+            join()
+        }
     }
 }
