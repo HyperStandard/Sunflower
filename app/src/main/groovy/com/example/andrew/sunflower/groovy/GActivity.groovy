@@ -82,13 +82,13 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick (R.id.fab)
     public void onClick(View button) {
         BusProvider.getInstance().post("Button pressed")
-        Thread.start {
+        /*Thread.start {
             sleep(1000);
             BusProvider.getInstance().post("count 1")
             sleep(1000)
             BusProvider.getInstance().post("count 2")
-            interrupt()
-            join()
-        }
+            //interrupt()
+            //join()
+        }*/
     }
 }
